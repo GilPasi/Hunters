@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sleepButton"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/img"
+    android:onClick="sleep"
+    tools:context=".GamePlayActivity">
+
+
+    <ImageView
+        android:id="@+id/card02"
+        android:layout_width="114dp"
+        android:layout_height="196dp"
+        android:layout_marginEnd="20dp"
+        android:onClick="selectCard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/card_rear" />
+
+    <ImageView
+        android:id="@+id/card10"
+        android:layout_width="114dp"
+        android:layout_height="196dp"
+        android:layout_marginStart="24dp"
+        android:onClick="selectCard"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/card00"
+        app:srcCompat="@drawable/card_rear" />
+
+    <ImageView
+        android:id="@+id/card11"
+        android:layout_width="114dp"
+        android:layout_height="196dp"
+        android:onClick="selectCard"
+        app:layout_constraintEnd_toStartOf="@+id/card12"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toEndOf="@+id/card10"
+        app:layout_constraintTop_toBottomOf="@+id/card01"
+        app:srcCompat="@drawable/card_rear" />
+
+    <ImageView
+        android:id="@+id/card00"
+        android:layout_width="114dp"
+        android:layout_height="196dp"
+        android:layout_marginStart="24dp"
+        android:onClick="selectCard"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/card_rear_clear" />
+
+    <ImageView
+        android:id="@+id/card20"
+        android:layout_width="114dp"
+        android:layout_height="196dp"
+        android:layout_marginStart="24dp"
+        android:onClick="selectCard"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/card10"
+        app:srcCompat="@drawable/card_rear" />
+
+    <ImageView
+        android:id="@+id/card30"
+        android:layout_width="114dp"
+        android:layout_height="196dp"
+        android:layout_marginStart="24dp"
+        android:onClick="selectCard"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/card20"
+        app:srcCompat="@drawable/card_rear" />
+
+    <ImageView
+        android:id="@+id/card32"
+        android:layout_width="114dp"
+        android:layout_height="196dp"
+        android:layout_marginEnd="20dp"
+        android:onClick="selectCard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/card22"
+        app:srcCompat="@drawable/card_rear" />
+
+    <ImageView
+        android:id="@+id/card31"
+        android:layout_width="114dp"
+        android:layout_height="196dp"
+        android:onClick="selectCard"
+        app:layout_constraintEnd_toStartOf="@+id/card32"
+        app:layout_constraintHorizontal_bias="0.48"
+        app:layout_constraintStart_toEndOf="@+id/card30"
+        app:layout_constraintTop_toBottomOf="@+id/card21"
+        app:srcCompat="@drawable/card_rear" />
+
+    <ImageView
+        android:id="@+id/card22"
+        android:layout_width="114dp"
+        android:layout_height="196dp"
+        android:layout_marginEnd="20dp"
+        android:onClick="selectCard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/card12"
+        app:srcCompat="@drawable/card_rear" />
+
+    <ImageView
+        android:id="@+id/card21"
+        android:layout_width="114dp"
+        android:layout_height="196dp"
+        android:onClick="selectCard"
+        app:layout_constraintEnd_toStartOf="@+id/card22"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toEndOf="@+id/card20"
+        app:layout_constraintTop_toBottomOf="@+id/card11"
+        app:srcCompat="@drawable/card_rear" />
+
+    <ImageView
+        android:id="@+id/card12"
+        android:layout_width="114dp"
+        android:layout_height="196dp"
+        android:layout_marginEnd="20dp"
+        android:onClick="selectCard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/card02"
+        app:srcCompat="@drawable/card_rear" />
+
+    <ImageView
+        android:id="@+id/card01"
+        android:layout_width="114dp"
+        android:layout_height="196dp"
+        android:onClick="selectCard"
+        app:layout_constraintEnd_toStartOf="@+id/card02"
+        app:layout_constraintHorizontal_bias="0.48"
+        app:layout_constraintStart_toEndOf="@+id/card00"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/card_rear" />
+
+    <TextView
+        android:id="@+id/huntText"
+        android:layout_width="169dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/wood_button"
+        android:onClick="hunt"
+        android:text="ⱧɄ₦₮"
+        android:textAlignment="center"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/sleepText"
+        android:layout_width="169dp"
+        android:layout_height="46dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/wood_button"
+        android:onClick="sleep"
+        android:text="₴ⱠɆɆ₱"
+        android:textAlignment="center"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.35"
+        app:layout_constraintStart_toEndOf="@+id/huntText" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

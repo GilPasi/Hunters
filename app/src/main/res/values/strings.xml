@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name" translatable="false">Hunters</string>
+    <string name="instruction" translatable="false">
+This game is very similar to the memory game.
+Only there are thirds of identical cards instead of pairs.
+Each player need to chose 2 cards from the board.
+if a pair was found, the player can go "hunt" for the third card with 2 more tries.
+if the third card was found, the player will get a bonus of 15 points.
+otherwise, the rival will be gain double turn.
+Alternatively, a player can "sleep" the last turn and not give the other player an extra turn.
+
+if the third card was found on the first guess, the finder will get the whole set including 15 points bonous.
+if it was found second, the player may chose to take throw it away and get another turn, or get only the points for the individual card.
+the winner is the person with most points at the end of the game.</string>
+    <string name="hunt_title" translatable="false">ⱧɄ₦₮</string>
+    <string name="sleep_title" translatable="false">₴ⱠɆɆ₱</string>
+    <string name="save_title" translatable="false">₴₳VɆ</string>
+    <string name="search_title" translatable="false">₴Ɇ₳Ɽ₵Ⱨ</string>
+</resources>
