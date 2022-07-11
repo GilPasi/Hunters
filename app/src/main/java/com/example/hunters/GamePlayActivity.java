@@ -25,21 +25,21 @@ public class GamePlayActivity extends AppCompatActivity
     static final int BONUS = 15;
 
 
-    static Card c1 = new Card(0,'a',5,"Alligator");
-    static Card c2 = new Card(0,'b',5,"Alligator");
-    static Card c3 = new Card(0,'c',5,"Alligator");
+    static Card c1 = new Card(0,'a',5);
+    static Card c2 = new Card(0,'b',5);
+    static Card c3 = new Card(0,'c',5);
 
-    static Card c4 = new Card(1,'a',7,"Piranha");
-    static Card c5 = new Card(1,'b',7,"Piranha");
-    static Card c6 = new Card(1,'c',7,"Piranha");
+    static Card c4 = new Card(1,'a',7);
+    static Card c5 = new Card(1,'b',7);
+    static Card c6 = new Card(1,'c',7);
 
-    static Card c7 = new Card(2,'a',3,"Sloth");
-    static Card c8 = new Card(2,'b',3,"Sloth");
-    static Card c9 = new Card(2,'c',3,"Sloth");
+    static Card c7 = new Card(2,'a',3);
+    static Card c8 = new Card(2,'b',3);
+    static Card c9 = new Card(2,'c',3);
 
-    static Card c10 = new Card(3,'a',15,"Cassowary");
-    static Card c11 = new Card(3,'b',5,"Cassowary");
-    static Card c12 = new Card(3,'c',5,"Cassowary");
+    static Card c10 = new Card(3,'a',15);
+    static Card c11 = new Card(3,'b',5);
+    static Card c12 = new Card(3,'c',5);
 
     static  Card [][] sortedCardsArray = {{c1,c2,c3},{c4,c5,c6},{c7,c8,c9},{c10,c11,c12}};
     static Card [][] cardsArray = new Card [SETS][SET_SIZE];
@@ -145,73 +145,62 @@ public class GamePlayActivity extends AppCompatActivity
 
         Toast.makeText(this,buttonName,Toast.LENGTH_LONG).show();//TODO ____________DEBUG_____________
 
-
         int cardIndexes = stringToInt(buttonName);
 
 
+        if(canSleepHunt || cardIndexes == firstCardIndex)//Avoid accidental touch
+            return;
+
+        findCardByIndex(cardIndexes).status = 2; // Signal that the card is open
+        --leftMoves;
 
 
+            //Check for hunt scenario
+            if(huntScenario){
+                huntTurn(cardIndexes);
+                return;
+            }
 
 
-
-
-
-        if(!canSleepHunt && cardIndexes != firstCardIndex ) {// Avoid accidental touch
-            leftMoves -- ;
-            //TODO After having all the pictures, apply the change image method
-
-
-            // Other set members were found
-
-
+            //Check for save or search scenario
             if(isPairFound(findCardByIndex(cardIndexes))){
                 saveSearchTurn(cardIndexes);
+                return;
+            }
 
-            }//Entering a save or search scenario
-
-
-
-
-            //First card selection
-            if (firstCardIndex == INIT)
+            //First Choice scenario
+            if (firstCardIndex == INIT){
                 firstCardIndex = cardIndexes;//Save the indexes for the next card
+                return;
+            }
+
+            //No pair scenario
+            if (findCardByIndex(cardIndexes).set != findCardByIndex(firstCardIndex).set){
+
+                try
+                {
+                    Thread.sleep(3000); // Sleep the current thread for 1 second
+                } catch (InterruptedException e){
+                    Toast.makeText(this,"Problem occurred",Toast.LENGTH_LONG).show();//TODO ____________DEBUG__________
+
+                }
+                endTurn();//flip both cards
+                return;
+
+            }
 
 
 
-
-
-            //None set pair
+            //Found pair scenario , can sleep or hunt
             else {
 
-                if (findCardByIndex(cardIndexes).set != findCardByIndex(firstCardIndex).set)// Compare set values
+                // Add cards to the hand
+                findCurrentPlayer().addCardToHand(findCardByIndex(cardIndexes));
+                findCurrentPlayer().addCardToHand(findCardByIndex(firstCardIndex));
 
-                {
-                    //flip both cards
-                    endTurn();
-                }
-
-
-                //A pair was found, can sleep ot hunt
-                else {
-
-                    // Add cards to the hand
-                    findCurrentPlayer().addCardToHand(findCardByIndex(cardIndexes));
-                    findCurrentPlayer().addCardToHand(findCardByIndex(firstCardIndex));
-
-                    secondCardIndex = cardIndexes;// Save indexes
-                    canSleepHunt = true;
-
-
-                }
-            }
-        }
-
-        if(huntScenario){
-
-            huntTurn(cardIndexes);
-
-        }
-
+                secondCardIndex = cardIndexes;// Save indexes
+                canSleepHunt = true;
+             }
 
     }
 
@@ -249,13 +238,13 @@ public class GamePlayActivity extends AppCompatActivity
     public void hunt(View v){
         // This button also functions as the "search button"
 
-        if(!canSleepHunt)
+        if(!canSleepHunt && !saveOrSearch)
             return;// avoid accidental touch
 
 
         if(saveOrSearch){
-            findCardByIndex(firstCardIndex).onBoard = false; // The card was discarded
-            //Discarding animations
+            findCardByIndex(firstCardIndex).status = 3; // The card was discarded
+            //TODO Discarding animations
 
             leftMoves = 2;// A new turn
             exitSaveOrSearch();
@@ -268,11 +257,6 @@ public class GamePlayActivity extends AppCompatActivity
             leftMoves += 2;
             canSleepHunt = false;
         }
-
-
-
-
-
 
     }
 
@@ -318,7 +302,7 @@ public class GamePlayActivity extends AppCompatActivity
             if(leftMoves == 0){
                 //Unsuccessful hunt
                 endTurn();
-                leftMoves ++;// The other player gain another turn
+                leftMoves = 3;// The other player gain another turn
                 //Folding animations
             }
             //Otherwise the turn was just wasted
@@ -384,7 +368,16 @@ public class GamePlayActivity extends AppCompatActivity
 
 //TODO make static again
     private void endTurn(){
-        Toast.makeText(this,"endTurn",Toast.LENGTH_LONG).show();//TODO ____________DEBUG_____________
+        Toast.makeText(this,"endTurn",Toast.LENGTH_LONG).show();//TODO ____________DEBUG__________
+
+
+
+        imageViews = new ImageView[]{card00, card01, card02, card10, card11, card12, card20,
+                card21, card22, card30, card31, card32};
+
+        for(int i = 0 ; i < SET_SIZE*SETS; i++)
+                    imageViews[i].setImageDrawable(getResources().getDrawable(R.drawable.card_rear));
+
 
         firstCardIndex = INIT;
         secondCardIndex = INIT;
@@ -393,8 +386,6 @@ public class GamePlayActivity extends AppCompatActivity
         currentTurn = !currentTurn;
         huntScenario = false;
         saveOrSearch = false;
-
-       //onClick();
 
 
     }
@@ -424,8 +415,8 @@ public class GamePlayActivity extends AppCompatActivity
     private boolean isPairFound(Card ca){
         /*This method find out if the other cards from the set are on the board or at the hand of a player*/
 
-        for(int i = 0; i < SET_SIZE; i++){
-            if(!sortedCardsArray[ca.set][i].onBoard)
+        for(char i = 0; i < SET_SIZE; i++){//Check the cards on the sorted array
+            if(sortedCardsArray[ca.set][i].status == 3) // If status is 3 the card is not in game
                 return true;
         }
         return false;
@@ -440,6 +431,9 @@ public class GamePlayActivity extends AppCompatActivity
     @Override
     public void onClick(View v) {
 
+                if(canSleepHunt)//Avoid accidental touch
+                    return;
+
         imageViews = new ImageView[]{card00, card01, card02, card10, card11, card12, card20,
                 card21, card22, card30, card31, card32};
 
@@ -452,6 +446,10 @@ public class GamePlayActivity extends AppCompatActivity
 
                     case(0):
                         imageViews[i].setImageDrawable(getResources().getDrawable(R.drawable.alligator));
+
+
+                        imageViews[i].setImageDrawable(getResources().getDrawable(R.drawable.card_rear));
+
                         break;
 
                     case(1):

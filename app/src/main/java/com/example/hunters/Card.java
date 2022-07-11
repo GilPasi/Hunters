@@ -9,7 +9,7 @@ public class Card{
     int col;
     char position;
     int points;
-    boolean onBoard;
+    int status;// 1 =  in game card,close. 2 = in game card, open. 3 = card taken
     String picName;
 
 
@@ -19,18 +19,8 @@ public class Card{
         this.set = set;
         this.position = position;
         this.points = points;
-        onBoard = true;
+        status = 1;
         picName = null;
-    }
-
-    Card (int set, char position, int score,String picName){
-        row = 0;
-        col = 0;
-        this.set = set;
-        this.position = position;
-        this.points = points;
-        this.picName = picName;
-        onBoard = true;
     }
 
     public String toString(){

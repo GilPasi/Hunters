@@ -24,7 +24,7 @@ public class Player {
         }
         score += c.points;// Add the score as well
 
-        c.onBoard = false; // The card is no longer on the board
+        c.status = 3;// The card is no longer on the board
 
     }
 
